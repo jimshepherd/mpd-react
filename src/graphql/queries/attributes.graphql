@@ -1,0 +1,10 @@
+query Attributes($parent: AttributeInput) {
+  attributes(parent: $parent) {
+    id
+    name
+    description
+    parent {
+      id
+    }
+  }
+}

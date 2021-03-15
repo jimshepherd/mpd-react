@@ -1,3 +1,15 @@
+# Installation
+## Node
+* Install nvm per https://github.com/nvm-sh/nvm
+  ```shell
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+  ```
+## mpd-django
+* Install mpd-django from https://github.com/jimshepherd/mpd-django
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
