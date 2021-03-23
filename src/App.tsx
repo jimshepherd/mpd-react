@@ -8,7 +8,7 @@ import Routes from './routes/Routes';
 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8000/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URL,
   credentials: 'same-origin',
 });
 
