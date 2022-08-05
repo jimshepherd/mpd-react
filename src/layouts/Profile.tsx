@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery} from '@apollo/client';
-import { Button, Divider, MenuList, MenuItem, Popper } from '@material-ui/core';
-import { Person } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
+import { Button, Divider, MenuList, MenuItem, Popper } from '@mui/material';
+import { Person } from '@mui/icons-material';
 
 import Loading from '../components/common/Loading';
 import currentUserQuery from '../graphql/queries/currentUser.graphql';
 
 
-const useStyles = makeStyles((theme) => ({
+const classes = {
   link: {
-    margin: theme.spacing(1, 1.5),
+    //margin: theme.spacing(1, 1.5),
   },
   dropdownItem: {
 
   },
-}));
+};
 
 
 const Profile = () => {
-
-  const classes = useStyles();
 
   const navigate = useNavigate();
 
@@ -57,7 +54,7 @@ const Profile = () => {
         href='/signin'
         color='inherit'
         variant='outlined'
-        className={classes.link}
+        sx={classes.link}
       >
         Sign In
       </Button>
@@ -80,20 +77,20 @@ const Profile = () => {
         <MenuList role='menu'>
           <MenuItem
             onClick={handleCloseProfile}
-            className={classes.dropdownItem}
+            sx={classes.dropdownItem}
           >
             Profile
           </MenuItem>
           <MenuItem
             onClick={handleCloseProfile}
-            className={classes.dropdownItem}
+            sx={classes.dropdownItem}
           >
             Settings
           </MenuItem>
           <Divider light />
           <MenuItem
             onClick={handleSignOut}
-            className={classes.dropdownItem}
+            sx={classes.dropdownItem}
           >
             Sign Out
           </MenuItem>

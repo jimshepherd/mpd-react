@@ -1,194 +1,125 @@
-import React, { FunctionComponent } from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Badge,
   Box,
-  Container,
   CssBaseline,
   Divider,
   Drawer,
-  Grid,
   IconButton,
-  List, ListItem, ListItemIcon, ListItemText, ListSubheader,
-  Paper,
+  List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader,
   Toolbar,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   Assignment,
-  BarChart,
-  ChevronLeft,
+  Category,
   Dashboard as DashboardIcon,
-  Layers,
-  Menu,
+  Menu as MenuIcon,
   Notifications,
-  People,
   ShoppingCart,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import Copyright from './Copyright';
 import Profile from './Profile';
 
-const ListItemLink = (props: any) => {
-  // @ts-ignore
-  return <ListItem button component='a' {...props} />;
-}
+export const mainListItems = [
+  {
+    icon: <DashboardIcon />,
+    text:'Home',
+    link: '/',
+  }, {
+    icon: <Category />,
+    text:'Products',
+    link: '/app/products',
+  }, {
+    icon: <ShoppingCart />,
+    text:'Materials',
+    link: '/app/materials',
+  }, {
+    icon: <ShoppingCart />,
+    text:'Processes',
+    link: '/app/processes',
+  },
+];
 
-export const mainListItems = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary='Home' />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCart />
-      </ListItemIcon>
-      <ListItemText primary='Materials' />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCart />
-      </ListItemIcon>
-      <ListItemText primary='Processes' />
-    </ListItem>
-  </div>
-);
-
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Administrative</ListSubheader>
-    <ListItemLink href='/app/attributes'>
-      <ListItemIcon>
-        <Assignment />
-      </ListItemIcon>
-      <ListItemText primary='Attributes' />
-    </ListItemLink>
-  </div>
-);
-
-
-
+export const secondaryListItems = [
+  {
+    icon: <Assignment />,
+    text:'Attributes',
+    link: '/app/attributes',
+  },
+];
 
 const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  link: {
-    margin: theme.spacing(1, 1.5),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
-}));
-
 
 export const MainLayout = () => {
 
   console.log('MainLayout');
 
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const drawer = (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        {mainListItems.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton href={item.link}>
+              <ListItemIcon>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        <ListSubheader inset>Administrative</ListSubheader>
+        {secondaryListItems.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton href={item.link}>
+              <ListItemIcon>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  //const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className={classes.root}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position='absolute' className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
+      <AppBar
+          position='fixed'
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)`},
+            ml: { sm: `${drawerWidth}px` },
+          }}
+      >
+        <Toolbar sx={{ justifyContent: 'flex-end'}}>
           <IconButton
-            edge='start'
             color='inherit'
             aria-label='open drawer'
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            edge='start'
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <Menu/>
+            <MenuIcon />
           </IconButton>
-          <Typography component='h1' variant='h6' color='inherit' noWrap className={classes.title}>
+          <Typography component='div' variant='h6' noWrap color={'inherit'} sx={{ flexGrow: 1 }}>
             Material Process Data
           </Typography>
           <IconButton color='inherit'>
@@ -196,36 +127,52 @@ export const MainLayout = () => {
               <Notifications />
             </Badge>
           </IconButton>
-          <Profile/>
+          <Profile />
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant='permanent'
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
+      <Box
+        component='nav'
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label='navigation'
       >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeft />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth='lg' className={classes.container}>
-          <Outlet/>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
+        <Drawer
+          //container={container}
+          variant='temporary'
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant='permanent'
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box
+        component='main'
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
+        <Toolbar />
+        <Outlet/>
+        <Box pt={4}>
+          <Copyright />
+        </Box>
+
+      </Box>
+    </Box>
   );
 }
 

@@ -1,0 +1,6 @@
+
+
+fragment MICTypeMinimum on MICType {
+  id
+  name
+}

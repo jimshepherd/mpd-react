@@ -1,0 +1,18 @@
+#import './TestPlanMICDetailFragment.graphql'
+
+fragment TestPlanDetail on TestPlan {
+  id
+  name
+  description
+  specification {
+    id
+    name
+  }
+  product {
+    id
+    name
+  }
+  mics {
+    ...TestPlanMICDetail
+  }
+}

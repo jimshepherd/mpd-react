@@ -13,37 +13,35 @@ import {
   Link,
   TextField,
   Typography,
-} from '@material-ui/core';
-import { LockOutlined } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import { LockOutlined } from '@mui/icons-material';
 
 import tokenAuthMutation from '../../graphql/mutations/tokenAuth.graphql';
 import {TokenAuth, TokenAuthVariables} from '../../graphql/types/TokenAuth';
 import Copyright from '../../layouts/Copyright';
 
 
-const useStyles = makeStyles((theme) => ({
+const classes = {
   paper: {
-    marginTop: theme.spacing(8),
+    //marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    //margin: theme.spacing(1),
+    //backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    //marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    //margin: theme.spacing(3, 0, 2),
   },
-}));
+};
 
 export default function SignIn() {
-  const classes = useStyles();
 
   let navigate = useNavigate();
 
@@ -69,15 +67,15 @@ export default function SignIn() {
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <div className={JSON.stringify(classes.paper)}>
+        <Avatar className={JSON.stringify(classes.avatar)}>
           <LockOutlined />
         </Avatar>
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
         <form
-          className={classes.form}
+          className={JSON.stringify(classes.form)}
           noValidate
           //method='post'
           onSubmit={handleSignIn}
@@ -119,7 +117,7 @@ export default function SignIn() {
             fullWidth
             variant='contained'
             color='primary'
-            className={classes.submit}
+            sx={classes.submit}
           >
             Sign In
           </Button>

@@ -3,16 +3,17 @@ import SignIn from '../components/SignIn/SignIn';
 import { AttributeView } from '../components/Attribute';
 import { Home } from '../components/Home';
 import { MainLayout, MinimalLayout } from '../layouts';
+import { ProductsView } from '../components/Product';
 
 
 const routes = (isAuthenticated: boolean) => [
   {
-    path: '/app',
+    path: 'app',
     element: isAuthenticated ? <MainLayout /> : <Navigate to='/signin' />,
     children: [
-      { path: '/home', element: <Home /> },
-      { path: '/attributes', element: <AttributeView /> },
-      { path: '/', element: <Navigate to='/app/home' /> },
+      { path: 'home', element: <Home /> },
+      { path: 'attributes', element: <AttributeView /> },
+      { path: 'products', element: <ProductsView /> },
       //{ path: '*', element: <Navigate to='/404'/> }
     ]
   },
@@ -22,7 +23,6 @@ const routes = (isAuthenticated: boolean) => [
     children: [
       { path: 'signin', element: <SignIn /> },
       //{ path: '404', element: <NotFoundView /> },
-      { path: '/', element: <Navigate to='/signin' /> },
       //{ path: '*', element: <Navigate to='/404'/> }
     ],
   },

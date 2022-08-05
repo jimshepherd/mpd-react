@@ -1,0 +1,12 @@
+#import './MICTypeMinimumFragment.graphql'
+
+fragment MICDetail on MIC {
+  id
+  name
+  description
+  micType {
+    ...MICTypeMinimum
+  }
+  values
+  unit
+}

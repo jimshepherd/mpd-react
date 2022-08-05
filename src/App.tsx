@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { ThemeProvider, makeStyles } from "@mui/styles";
 
 import './App.css';
 import Routes from './routes/Routes';
@@ -29,13 +30,20 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+//const theme = createMuiTheme();
+
+const useStyles = makeStyles((theme) => {
+  root: {
+    // some CSS that accesses the theme
+  }
+});
 
 const App = () => {
 
   return (
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <Routes/>
+          <Routes/>
       </ApolloProvider>
     </BrowserRouter>
   );

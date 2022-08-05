@@ -3,7 +3,7 @@ import React from 'react';
 import useListAttributes from '../../graphql/hooks/useListAttributes';
 
 
-export const AttributeView = () => {
+export const AttributeEdit= () => {
 
   console.log('AttributeView');
 
@@ -16,4 +16,4 @@ export const AttributeView = () => {
   );
 };
 
-export default AttributeView;
+export default AttributeEdit;

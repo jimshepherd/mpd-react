@@ -1,0 +1,15 @@
+#import './MICDetailFragment.graphql'
+
+fragment ProductSpecificationDetail on ProductSpecification {
+    id
+    name
+    description
+    version
+    product {
+      id
+      name
+    }
+    mics {
+      ...MICDetail
+    }
+}

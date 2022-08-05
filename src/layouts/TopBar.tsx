@@ -5,22 +5,20 @@ import {
   AppBar,
   Toolbar,
   Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
 
-const useStyles = makeStyles(({
+const classes = {
   root: {},
   toolbar: {
     height: 64
   }
-}));
+};
 
 type Props = {
   className?: string,
 }
 
 const TopBar = ({ className, ...rest }: Props) => {
-  const classes = useStyles();
 
   return (
     <AppBar
@@ -28,7 +26,7 @@ const TopBar = ({ className, ...rest }: Props) => {
       elevation={0}
       {...rest}
     >
-      <Toolbar className={classes.toolbar}>
+      <Toolbar sx={classes.toolbar}>
         <RouterLink to='/'>
           <Typography variant='h4'>
             Logo

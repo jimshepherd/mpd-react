@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 export interface ItemInput {
   id?: string | null;
 }
@@ -28,5 +30,9 @@ export class Item {
       return {id: this.id};
     }
     return {};
+  }
+
+  clone() {
+    return cloneDeep(this) || null;
   }
 }

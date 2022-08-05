@@ -1,0 +1,8 @@
+#import '../fragments/ProductSpecificationDetailFragment.graphql'
+
+query ProductSpecifications($product: ProductInput) {
+  productSpecifications(product: $product) {
+    ...ProductSpecificationDetail
+  }
+}
+

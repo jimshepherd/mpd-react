@@ -1,0 +1,15 @@
+
+fragment TestPlanMICDetail on TestPlanMIC {
+  id
+  name
+  description
+  micType {
+    id
+    name
+  }
+  values
+  unit
+  micId
+  sampleType
+  sampleSize
+}

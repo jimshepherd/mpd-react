@@ -8,6 +8,16 @@
 * Install mpd-django from https://github.com/jimshepherd/mpd-django
 
 
+## Updating GraphQL types
+* Run the code-gen script
+```shell
+yarn run graphql_gen
+```
+* Run the apollo CLI (deprecated)
+```shell
+~/.yarn/bin/apollo client:codegen --target typescript --endpoint=http://localhost:8000/graphql --outputFlat src/graphql/types/
+```
+
 
 
 # Getting Started with Create React App

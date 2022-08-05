@@ -1,0 +1,7 @@
+
+
+fragment MICTypeDetail on MICType {
+  id
+  name
+  description
+}

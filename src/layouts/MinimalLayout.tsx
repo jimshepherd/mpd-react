@@ -1,11 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import TopBar from './TopBar';
 
-const useStyles = makeStyles((theme) => ({
+const classes = {
   root: {
-    backgroundColor: theme.palette.background.default,
+    //backgroundColor: theme.palette.background.default,
     display: 'flex',
     height: '100%',
     overflow: 'hidden',
@@ -27,18 +26,17 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'auto'
   }
-}));
+};
 
 
 export const MinimalLayout = () => {
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={JSON.stringify(classes.root)}>
       <TopBar />
-      <div className={classes.wrapper}>
-        <div className={classes.contentContainer}>
-          <div className={classes.content}>
+      <div className={JSON.stringify(classes.wrapper)}>
+        <div className={JSON.stringify(classes.contentContainer)}>
+          <div className={JSON.stringify(classes.content)}>
             <Outlet />
           </div>
         </div>
