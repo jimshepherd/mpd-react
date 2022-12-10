@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { useQuery} from '@apollo/client';
 
 import { Attribute } from '../../models';
-import { Attributes, AttributesVariables } from '../types/Attributes';
+import { AttributesQuery, AttributesQueryVariables } from '../../generated/graphql';
 import attributesQuery from '../queries/attributes.graphql';
-import {useState} from 'react';
 
 
 type Props = {
@@ -18,7 +18,7 @@ const useListAttributes = (props: Props = {}) => {
 
   const [items, setItems] = useState<Attribute[]|null>();
 
-  const { error, loading } = useQuery<Attributes, AttributesVariables>(
+  const { error, loading } = useQuery<AttributesQuery, AttributesQueryVariables>(
     attributesQuery,
     {
       variables: {parent: parent},

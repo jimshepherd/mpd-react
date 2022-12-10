@@ -1,6 +1,6 @@
 export { Attribute } from './Attribute';
 export { Item } from './Item';
-export { MaterialSpecification } from './MaterialSpecification';
+export { Material, MaterialSpecification, MaterialType } from './Material';
 export { MIC } from './MIC';
 export { MICType } from './MICType';
 export { Product } from './Product';

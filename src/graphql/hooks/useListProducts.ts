@@ -2,7 +2,7 @@ import { useQuery} from '@apollo/client';
 
 import { Product } from '../../models';
 import { Products } from '../types/Products';
-import productsQuery from '../queries/products.graphql';
+import productsQuery from '../queries/products.graphql.inactive';
 import {useState} from 'react';
 
 

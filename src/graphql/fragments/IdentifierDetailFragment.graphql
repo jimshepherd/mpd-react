@@ -1,0 +1,9 @@
+#import './IdentifierTypeDetailFragment.graphql'
+
+fragment IdentifierDetail on Identifier {
+  id
+  identifierType {
+    ...IdentifierTypeDetail
+  }
+  value
+}

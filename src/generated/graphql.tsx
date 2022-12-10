@@ -49,10 +49,10 @@ export type Attribute = {
   __typename?: 'Attribute';
   children: Array<Attribute>;
   description: Scalars['String'];
-  equipmentSet: Array<Equipment>;
+  equipment: Array<Equipment>;
   id: Scalars['ID'];
-  materialSet: Array<ProducedProduct>;
-  materialspecificationSet: Array<Product>;
+  materialSpecifications: Array<MaterialSpecification>;
+  materials: Array<Material>;
   name: Scalars['String'];
   parent?: Maybe<Attribute>;
 };
@@ -84,8 +84,8 @@ export type Equipment = {
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
   organization?: Maybe<Organization>;
-  processSet: Array<ProductMeasurement>;
-  properties: Array<MicValue>;
+  processes: Array<Process>;
+  properties: Array<Property>;
 };
 
 export type EquipmentInput = {
@@ -102,10 +102,10 @@ export type EquipmentInput = {
 export type EquipmentType = {
   __typename?: 'EquipmentType';
   description: Scalars['String'];
-  equipmentSet: Array<Equipment>;
+  equipment: Array<Equipment>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  processmethodSet: Array<TestPlan>;
+  processMethods: Array<ProcessMethod>;
 };
 
 export type EquipmentTypeInput = {
@@ -118,11 +118,11 @@ export type Identifier = {
   __typename?: 'Identifier';
   createdAt: Scalars['DateTime'];
   createdBy?: Maybe<User>;
-  equipmentSet: Array<Equipment>;
+  equipment: Array<Equipment>;
   id: Scalars['ID'];
   identifierType?: Maybe<IdentifierType>;
-  materialSet: Array<ProducedProduct>;
-  materialspecificationSet: Array<Product>;
+  materialSpecifications: Array<MaterialSpecification>;
+  materials: Array<Material>;
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   value: Scalars['String'];
@@ -137,94 +137,19 @@ export type IdentifierInput = {
 
 export type IdentifierType = {
   __typename?: 'IdentifierType';
+  children: Array<IdentifierType>;
   description: Scalars['String'];
   id: Scalars['ID'];
-  identifierSet: Array<Identifier>;
+  identifiers: Array<Identifier>;
   name: Scalars['String'];
+  parent?: Maybe<IdentifierType>;
 };
 
 export type IdentifierTypeInput = {
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
-};
-
-export type Mic = {
-  __typename?: 'MIC';
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  micType?: Maybe<MicType>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  name: Scalars['String'];
-  processmethodSet: Array<TestPlan>;
-  processmethodstepSet: Array<TestPlanMic>;
-  propertySet: Array<MicValue>;
-  propertyType?: Maybe<MicType>;
-  unit?: Maybe<Scalars['String']>;
-  values: Scalars['JSONString'];
-};
-
-export type MicInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  micType?: InputMaybe<MicTypeInput>;
-  name?: InputMaybe<Scalars['String']>;
-  propertyType?: InputMaybe<MicTypeInput>;
-  unit?: InputMaybe<Scalars['String']>;
-  values?: InputMaybe<Scalars['JSONString']>;
-};
-
-export type MicType = {
-  __typename?: 'MICType';
-  children: Array<MicType>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  parent?: Maybe<MicType>;
-  propertySet: Array<MicValue>;
-  propertyspecificationSet: Array<Mic>;
-};
-
-export type MicTypeInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-export type MicValue = {
-  __typename?: 'MICValue';
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  equipmentSet: Array<Equipment>;
-  floatValue?: Maybe<Scalars['Float']>;
-  id: Scalars['ID'];
-  intValue?: Maybe<Scalars['Int']>;
-  materialSet: Array<ProducedProduct>;
-  materialspecificationSet: Array<Product>;
-  mic?: Maybe<Mic>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  processSet: Array<ProductMeasurement>;
-  processmethodSet: Array<TestPlan>;
-  processmethodstepSet: Array<TestPlanMic>;
-  processstepSet: Array<ProcessStep>;
-  propertyType?: Maybe<MicType>;
-  specification?: Maybe<Mic>;
-  textValue?: Maybe<Scalars['String']>;
-  unit?: Maybe<Scalars['String']>;
-};
-
-export type MicValueInput = {
-  floatValue?: InputMaybe<Scalars['Float']>;
-  id?: InputMaybe<Scalars['ID']>;
-  intValue?: InputMaybe<Scalars['Int']>;
-  mic?: InputMaybe<MicInput>;
-  specification?: InputMaybe<MicInput>;
-  textValue?: InputMaybe<Scalars['String']>;
-  unit?: InputMaybe<Scalars['String']>;
+  parent?: InputMaybe<IdentifierTypeInput>;
 };
 
 export type Material = {
@@ -238,10 +163,10 @@ export type Material = {
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
-  process?: Maybe<ProductMeasurement>;
+  process?: Maybe<Process>;
   processStep?: Maybe<ProcessStep>;
-  properties: Array<MicValue>;
-  specification?: Maybe<Product>;
+  properties?: Maybe<Array<Maybe<Property>>>;
+  specification?: Maybe<MaterialSpecification>;
 };
 
 export type MaterialInput = {
@@ -260,20 +185,20 @@ export type MaterialInput = {
 export type MaterialSpecification = {
   __typename?: 'MaterialSpecification';
   attributes: Array<Attribute>;
-  children: Array<Product>;
+  children: Array<MaterialSpecification>;
   createdAt: Scalars['DateTime'];
   createdBy?: Maybe<User>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   identifiers: Array<Identifier>;
-  materialSet: Array<ProducedProduct>;
-  materialType?: Maybe<ProductType>;
+  materialType?: Maybe<MaterialType>;
+  materials: Array<Material>;
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
-  parent?: Maybe<Product>;
-  processmethodSet: Array<TestPlan>;
-  properties: Array<MicValue>;
+  parent?: Maybe<MaterialSpecification>;
+  processmethodSet: Array<ProcessMethod>;
+  properties: Array<Property>;
   supplier?: Maybe<Organization>;
   version?: Maybe<Scalars['String']>;
 };
@@ -293,16 +218,19 @@ export type MaterialSpecificationInput = {
 
 export type MaterialType = {
   __typename?: 'MaterialType';
+  children: Array<MaterialType>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  materialspecificationSet: Array<Product>;
+  materialSpecifications: Array<MaterialSpecification>;
   name: Scalars['String'];
+  parent?: Maybe<MaterialType>;
 };
 
 export type MaterialTypeInput = {
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
+  parent?: InputMaybe<MaterialTypeInput>;
 };
 
 export type Mutation = {
@@ -319,23 +247,14 @@ export type Mutation = {
   updateMaterial?: Maybe<UpdateMaterial>;
   updateMaterialSpecification?: Maybe<UpdateMaterialSpecification>;
   updateMaterialType?: Maybe<UpdateMaterialType>;
-  updateMic?: Maybe<UpdateMic>;
-  updateMicType?: Maybe<UpdateMicType>;
-  updateMicValue?: Maybe<UpdateMicValue>;
   updateOrganization?: Maybe<UpdateOrganization>;
   updateOrganizationType?: Maybe<UpdateOrganizationType>;
   updateProcess?: Maybe<UpdateProcess>;
   updateProcessMethod?: Maybe<UpdateProcessMethod>;
   updateProcessType?: Maybe<UpdateProcessType>;
-  updateProducedProduct?: Maybe<UpdateProducedProduct>;
-  updateProduct?: Maybe<UpdateProduct>;
-  updateProductMeasurement?: Maybe<UpdateProductMeasurement>;
-  updateProductSpecification?: Maybe<UpdateProductSpecification>;
-  updateProductType?: Maybe<UpdateProductType>;
   updateProperty?: Maybe<UpdateProperty>;
   updatePropertySpecification?: Maybe<UpdatePropertySpecification>;
   updatePropertyType?: Maybe<UpdatePropertyType>;
-  updateTestPlan?: Maybe<UpdateTestPlan>;
   verifyToken?: Maybe<Verify>;
 };
 
@@ -398,21 +317,6 @@ export type MutationUpdateMaterialTypeArgs = {
 };
 
 
-export type MutationUpdateMicArgs = {
-  mic: MicInput;
-};
-
-
-export type MutationUpdateMicTypeArgs = {
-  micType: MicTypeInput;
-};
-
-
-export type MutationUpdateMicValueArgs = {
-  micValue: MicValueInput;
-};
-
-
 export type MutationUpdateOrganizationArgs = {
   organization: OrganizationInput;
 };
@@ -438,31 +342,6 @@ export type MutationUpdateProcessTypeArgs = {
 };
 
 
-export type MutationUpdateProducedProductArgs = {
-  producedProduct: ProducedProductInput;
-};
-
-
-export type MutationUpdateProductArgs = {
-  product: ProductInput;
-};
-
-
-export type MutationUpdateProductMeasurementArgs = {
-  productMeasurement: ProductMeasurementInput;
-};
-
-
-export type MutationUpdateProductSpecificationArgs = {
-  productSpecification: ProductSpecificationInput;
-};
-
-
-export type MutationUpdateProductTypeArgs = {
-  productType: ProductTypeInput;
-};
-
-
 export type MutationUpdatePropertyArgs = {
   property: PropertyInput;
 };
@@ -475,11 +354,6 @@ export type MutationUpdatePropertySpecificationArgs = {
 
 export type MutationUpdatePropertyTypeArgs = {
   propertyType: PropertyTypeInput;
-};
-
-
-export type MutationUpdateTestPlanArgs = {
-  testPlan: TestPlanInput;
 };
 
 
@@ -502,15 +376,15 @@ export type Organization = {
   createdAt: Scalars['DateTime'];
   createdBy?: Maybe<User>;
   description?: Maybe<Scalars['String']>;
-  equipmentSet: Array<Equipment>;
+  equipment: Array<Equipment>;
   id: Scalars['ID'];
-  materialspecificationSet: Array<Product>;
+  materialSpecifications: Array<MaterialSpecification>;
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
   orgTypes: Array<OrganizationType>;
   parent?: Maybe<Organization>;
-  processSet: Array<ProductMeasurement>;
+  processes: Array<Process>;
 };
 
 export type OrganizationInput = {
@@ -519,6 +393,7 @@ export type OrganizationInput = {
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
   orgTypes?: InputMaybe<Array<InputMaybe<OrganizationTypeInput>>>;
+  parent?: InputMaybe<OrganizationInput>;
 };
 
 export type OrganizationType = {
@@ -526,7 +401,7 @@ export type OrganizationType = {
   description: Scalars['String'];
   id: Scalars['ID'];
   name: Scalars['String'];
-  organizationSet: Array<Organization>;
+  organizations: Array<Organization>;
 };
 
 export type OrganizationTypeInput = {
@@ -542,15 +417,15 @@ export type Process = {
   description?: Maybe<Scalars['String']>;
   equipment?: Maybe<Equipment>;
   id: Scalars['ID'];
-  materialsOut: Array<ProducedProduct>;
-  method?: Maybe<TestPlan>;
+  materialsOut: Array<Material>;
+  method?: Maybe<ProcessMethod>;
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
   operator?: Maybe<User>;
   processType?: Maybe<ProcessType>;
   producer?: Maybe<Organization>;
-  properties: Array<MicValue>;
+  properties: Array<Property>;
   steps: Array<ProcessStep>;
 };
 
@@ -568,22 +443,22 @@ export type ProcessInput = {
 
 export type ProcessMethod = {
   __typename?: 'ProcessMethod';
-  children: Array<TestPlan>;
+  children: Array<ProcessMethod>;
   createdAt: Scalars['DateTime'];
   createdBy?: Maybe<User>;
   description?: Maybe<Scalars['String']>;
   equipmentType?: Maybe<EquipmentType>;
   id: Scalars['ID'];
-  materialSpecificationsIn: Array<Product>;
+  materialSpecificationsIn: Array<MaterialSpecification>;
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
-  parent?: Maybe<TestPlan>;
-  processSet: Array<ProductMeasurement>;
+  parent?: Maybe<ProcessMethod>;
   processType?: Maybe<ProcessType>;
-  properties: Array<MicValue>;
-  propertySpecs: Array<Mic>;
-  steps: Array<TestPlanMic>;
+  processes: Array<Process>;
+  properties: Array<Property>;
+  propertySpecs: Array<PropertySpecification>;
+  steps: Array<ProcessMethodStep>;
   version?: Maybe<Scalars['String']>;
 };
 
@@ -599,6 +474,24 @@ export type ProcessMethodInput = {
   version?: InputMaybe<Scalars['String']>;
 };
 
+export type ProcessMethodStep = {
+  __typename?: 'ProcessMethodStep';
+  children: Array<ProcessMethodStep>;
+  createdAt: Scalars['DateTime'];
+  createdBy?: Maybe<User>;
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  method: ProcessMethod;
+  modifiedAt: Scalars['DateTime'];
+  modifiedBy?: Maybe<User>;
+  name: Scalars['String'];
+  order: Scalars['Int'];
+  parent?: Maybe<ProcessMethodStep>;
+  processstepSet: Array<ProcessStep>;
+  properties: Array<Property>;
+  propertySpecs: Array<PropertySpecification>;
+};
+
 export type ProcessStep = {
   __typename?: 'ProcessStep';
   children: Array<ProcessStep>;
@@ -606,165 +499,29 @@ export type ProcessStep = {
   createdBy?: Maybe<User>;
   description: Scalars['String'];
   id: Scalars['ID'];
-  materialsOut: Array<ProducedProduct>;
-  methodStep?: Maybe<TestPlanMic>;
+  materialsOut: Array<Material>;
+  methodStep?: Maybe<ProcessMethodStep>;
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
   order: Scalars['Int'];
   parent?: Maybe<ProcessStep>;
-  process: ProductMeasurement;
-  properties: Array<MicValue>;
+  process: Process;
+  properties: Array<Property>;
 };
 
 export type ProcessType = {
   __typename?: 'ProcessType';
+  children: Array<ProcessType>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  processSet: Array<ProductMeasurement>;
-  processmethodSet: Array<TestPlan>;
+  parent?: Maybe<ProcessType>;
+  processMethods: Array<ProcessMethod>;
+  processes: Array<Process>;
 };
 
 export type ProcessTypeInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-export type ProducedProduct = {
-  __typename?: 'ProducedProduct';
-  attributes: Array<Attribute>;
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  identifiers: Array<Identifier>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  name: Scalars['String'];
-  process?: Maybe<ProductMeasurement>;
-  processStep?: Maybe<ProcessStep>;
-  product?: Maybe<Product>;
-  properties: Array<MicValue>;
-  specification?: Maybe<Product>;
-};
-
-export type ProducedProductInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  identifiers?: InputMaybe<Array<InputMaybe<IdentifierInput>>>;
-  materialType?: InputMaybe<ProductTypeInput>;
-  name?: InputMaybe<Scalars['String']>;
-  process?: InputMaybe<ProcessInput>;
-  product?: InputMaybe<ProductInput>;
-  specification?: InputMaybe<ProductInput>;
-};
-
-export type Product = {
-  __typename?: 'Product';
-  attributes: Array<Attribute>;
-  children: Array<Product>;
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  identifiers: Array<Identifier>;
-  materialSet: Array<ProducedProduct>;
-  materialType?: Maybe<ProductType>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  name: Scalars['String'];
-  parent?: Maybe<Product>;
-  processmethodSet: Array<TestPlan>;
-  properties: Array<MicValue>;
-  supplier?: Maybe<Organization>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type ProductInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  materialType?: InputMaybe<ProductTypeInput>;
-  name?: InputMaybe<Scalars['String']>;
-  version?: InputMaybe<Scalars['String']>;
-};
-
-export type ProductMeasurement = {
-  __typename?: 'ProductMeasurement';
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  description?: Maybe<Scalars['String']>;
-  equipment?: Maybe<Equipment>;
-  id: Scalars['ID'];
-  materialsOut: Array<ProducedProduct>;
-  method?: Maybe<TestPlan>;
-  micValues?: Maybe<Array<Maybe<MicValue>>>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  name: Scalars['String'];
-  operator?: Maybe<User>;
-  processType?: Maybe<ProcessType>;
-  producer?: Maybe<Organization>;
-  properties: Array<MicValue>;
-  specification?: Maybe<ProductSpecification>;
-  steps: Array<ProcessStep>;
-};
-
-export type ProductMeasurementInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  method?: InputMaybe<ProductSpecificationInput>;
-  micValues?: InputMaybe<Array<InputMaybe<MicValueInput>>>;
-  name?: InputMaybe<Scalars['String']>;
-  operator?: InputMaybe<UserInput>;
-  properties?: InputMaybe<Array<InputMaybe<MicValueInput>>>;
-  specification?: InputMaybe<ProductSpecificationInput>;
-};
-
-export type ProductSpecification = {
-  __typename?: 'ProductSpecification';
-  children: Array<TestPlan>;
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  description?: Maybe<Scalars['String']>;
-  equipmentType?: Maybe<EquipmentType>;
-  id: Scalars['ID'];
-  materialSpecificationsIn: Array<Product>;
-  mics?: Maybe<Array<Maybe<Mic>>>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  name: Scalars['String'];
-  parent?: Maybe<TestPlan>;
-  processSet: Array<ProductMeasurement>;
-  processType?: Maybe<ProcessType>;
-  product?: Maybe<Product>;
-  properties: Array<MicValue>;
-  propertySpecs: Array<Mic>;
-  steps: Array<TestPlanMic>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type ProductSpecificationInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  mics?: InputMaybe<Array<InputMaybe<MicInput>>>;
-  name?: InputMaybe<Scalars['String']>;
-  processType?: InputMaybe<ProcessTypeInput>;
-  product?: InputMaybe<ProductInput>;
-  propertySpecs?: InputMaybe<Array<InputMaybe<MicInput>>>;
-  version?: InputMaybe<Scalars['String']>;
-};
-
-export type ProductType = {
-  __typename?: 'ProductType';
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  materialspecificationSet: Array<Product>;
-  name: Scalars['String'];
-};
-
-export type ProductTypeInput = {
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
@@ -774,20 +531,20 @@ export type Property = {
   __typename?: 'Property';
   createdAt: Scalars['DateTime'];
   createdBy?: Maybe<User>;
-  equipmentSet: Array<Equipment>;
+  equipment: Array<Equipment>;
   floatValue?: Maybe<Scalars['Float']>;
   id: Scalars['ID'];
   intValue?: Maybe<Scalars['Int']>;
-  materialSet: Array<ProducedProduct>;
-  materialspecificationSet: Array<Product>;
+  materialSpecifications: Array<MaterialSpecification>;
+  materials: Array<Material>;
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
-  processSet: Array<ProductMeasurement>;
-  processmethodSet: Array<TestPlan>;
-  processmethodstepSet: Array<TestPlanMic>;
+  processSet: Array<Process>;
+  processmethodSet: Array<ProcessMethod>;
+  processmethodstepSet: Array<ProcessMethodStep>;
   processstepSet: Array<ProcessStep>;
-  propertyType?: Maybe<MicType>;
-  specification?: Maybe<Mic>;
+  propertyType?: Maybe<PropertyType>;
+  specification?: Maybe<PropertySpecification>;
   textValue?: Maybe<Scalars['String']>;
   unit?: Maybe<Scalars['String']>;
 };
@@ -812,10 +569,10 @@ export type PropertySpecification = {
   modifiedAt: Scalars['DateTime'];
   modifiedBy?: Maybe<User>;
   name: Scalars['String'];
-  processmethodSet: Array<TestPlan>;
-  processmethodstepSet: Array<TestPlanMic>;
-  propertySet: Array<MicValue>;
-  propertyType?: Maybe<MicType>;
+  processmethodSet: Array<ProcessMethod>;
+  processmethodstepSet: Array<ProcessMethodStep>;
+  properties: Array<Property>;
+  propertyType?: Maybe<PropertyType>;
   unit?: Maybe<Scalars['String']>;
   values: Scalars['JSONString'];
 };
@@ -831,19 +588,20 @@ export type PropertySpecificationInput = {
 
 export type PropertyType = {
   __typename?: 'PropertyType';
-  children: Array<MicType>;
+  children: Array<PropertyType>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  parent?: Maybe<MicType>;
-  propertySet: Array<MicValue>;
-  propertyspecificationSet: Array<Mic>;
+  parent?: Maybe<PropertyType>;
+  properties: Array<Property>;
+  propertySpecifications: Array<PropertySpecification>;
 };
 
 export type PropertyTypeInput = {
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
+  parent?: InputMaybe<PropertyTypeInput>;
 };
 
 export type Query = {
@@ -857,22 +615,13 @@ export type Query = {
   materialSpecifications?: Maybe<Array<Maybe<MaterialSpecification>>>;
   materialTypes?: Maybe<Array<Maybe<MaterialType>>>;
   materials?: Maybe<Array<Maybe<Material>>>;
-  micTypes?: Maybe<Array<Maybe<MicType>>>;
-  micValues?: Maybe<Array<Maybe<MicValue>>>;
-  mics?: Maybe<Array<Maybe<Mic>>>;
   organizationTypes?: Maybe<Array<Maybe<OrganizationType>>>;
   organizations?: Maybe<Array<Maybe<Organization>>>;
   processMethods?: Maybe<Array<Maybe<ProcessMethod>>>;
   processes?: Maybe<Array<Maybe<Process>>>;
-  producedProducts?: Maybe<Array<Maybe<ProducedProduct>>>;
-  productMeasurements?: Maybe<Array<Maybe<ProductMeasurement>>>;
-  productSpecifications?: Maybe<Array<Maybe<ProductSpecification>>>;
-  productTypes?: Maybe<Array<Maybe<ProductType>>>;
-  products?: Maybe<Array<Maybe<Product>>>;
   properties?: Maybe<Array<Maybe<Property>>>;
   propertySpecifications?: Maybe<Array<Maybe<PropertySpecification>>>;
   propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
-  testPlans?: Maybe<Array<Maybe<TestPlan>>>;
 };
 
 
@@ -886,13 +635,14 @@ export type QueryMaterialSpecificationsArgs = {
 };
 
 
-export type QueryProductSpecificationsArgs = {
-  product?: InputMaybe<ProductInput>;
+export type QueryMaterialTypesArgs = {
+  ancestor?: InputMaybe<MaterialTypeInput>;
 };
 
 
-export type QueryTestPlansArgs = {
-  product?: InputMaybe<ProductInput>;
+export type QueryMaterialsArgs = {
+  includeSubtypes?: InputMaybe<Scalars['Boolean']>;
+  materialType?: InputMaybe<MaterialTypeInput>;
 };
 
 export type Refresh = {
@@ -900,75 +650,6 @@ export type Refresh = {
   payload: Scalars['GenericScalar'];
   refreshExpiresIn: Scalars['Int'];
   token: Scalars['String'];
-};
-
-export type TestPlan = {
-  __typename?: 'TestPlan';
-  children: Array<TestPlan>;
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  description?: Maybe<Scalars['String']>;
-  equipmentType?: Maybe<EquipmentType>;
-  id: Scalars['ID'];
-  materialSpecificationsIn: Array<Product>;
-  mics?: Maybe<Array<Maybe<TestPlanMic>>>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  name: Scalars['String'];
-  parent?: Maybe<TestPlan>;
-  processSet: Array<ProductMeasurement>;
-  processType?: Maybe<ProcessType>;
-  product?: Maybe<Product>;
-  properties: Array<MicValue>;
-  propertySpecs: Array<Mic>;
-  specification?: Maybe<ProductSpecification>;
-  steps: Array<TestPlanMic>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type TestPlanInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  mics?: InputMaybe<Array<InputMaybe<TestPlanMicInput>>>;
-  name?: InputMaybe<Scalars['String']>;
-  parent?: InputMaybe<ProductSpecificationInput>;
-  processType?: InputMaybe<ProcessTypeInput>;
-  product?: InputMaybe<ProductInput>;
-  specification?: InputMaybe<ProductSpecificationInput>;
-  steps?: InputMaybe<Array<InputMaybe<TestPlanMicInput>>>;
-  version?: InputMaybe<Scalars['String']>;
-};
-
-export type TestPlanMic = {
-  __typename?: 'TestPlanMIC';
-  children: Array<TestPlanMic>;
-  createdAt: Scalars['DateTime'];
-  createdBy?: Maybe<User>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  method: TestPlan;
-  micId?: Maybe<Scalars['ID']>;
-  micType?: Maybe<MicType>;
-  modifiedAt: Scalars['DateTime'];
-  modifiedBy?: Maybe<User>;
-  name?: Maybe<Scalars['String']>;
-  order: Scalars['Int'];
-  parent?: Maybe<TestPlanMic>;
-  processstepSet: Array<ProcessStep>;
-  properties: Array<MicValue>;
-  propertySpecs: Array<Mic>;
-  sampleSize?: Maybe<Scalars['Int']>;
-  sampleType?: Maybe<Scalars['String']>;
-  unit?: Maybe<Scalars['String']>;
-  values?: Maybe<Scalars['JSONString']>;
-};
-
-export type TestPlanMicInput = {
-  id?: InputMaybe<Scalars['ID']>;
-  micId?: InputMaybe<Scalars['ID']>;
-  order?: InputMaybe<Scalars['Int']>;
-  sampleSize?: InputMaybe<Scalars['Int']>;
-  sampleType?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateAttribute = {
@@ -994,21 +675,6 @@ export type UpdateIdentifier = {
 export type UpdateIdentifierType = {
   __typename?: 'UpdateIdentifierType';
   identifierType?: Maybe<IdentifierType>;
-};
-
-export type UpdateMic = {
-  __typename?: 'UpdateMIC';
-  mic?: Maybe<Mic>;
-};
-
-export type UpdateMicType = {
-  __typename?: 'UpdateMICType';
-  micType?: Maybe<MicType>;
-};
-
-export type UpdateMicValue = {
-  __typename?: 'UpdateMICValue';
-  micValue?: Maybe<MicValue>;
 };
 
 export type UpdateMaterial = {
@@ -1051,31 +717,6 @@ export type UpdateProcessType = {
   processType?: Maybe<ProcessType>;
 };
 
-export type UpdateProducedProduct = {
-  __typename?: 'UpdateProducedProduct';
-  producedProduct?: Maybe<ProducedProduct>;
-};
-
-export type UpdateProduct = {
-  __typename?: 'UpdateProduct';
-  product?: Maybe<Product>;
-};
-
-export type UpdateProductMeasurement = {
-  __typename?: 'UpdateProductMeasurement';
-  productMeasurement?: Maybe<ProductMeasurement>;
-};
-
-export type UpdateProductSpecification = {
-  __typename?: 'UpdateProductSpecification';
-  productSpecification?: Maybe<ProductSpecification>;
-};
-
-export type UpdateProductType = {
-  __typename?: 'UpdateProductType';
-  productType?: Maybe<ProductType>;
-};
-
 export type UpdateProperty = {
   __typename?: 'UpdateProperty';
   property?: Maybe<Property>;
@@ -1091,25 +732,20 @@ export type UpdatePropertyType = {
   propertyType?: Maybe<PropertyType>;
 };
 
-export type UpdateTestPlan = {
-  __typename?: 'UpdateTestPlan';
-  testPlan?: Maybe<TestPlan>;
-};
-
 export type User = {
   __typename?: 'User';
   createdAddressSet: Array<Address>;
   createdEquipmentSet: Array<Equipment>;
   createdIdentifierSet: Array<Identifier>;
-  createdMaterialSet: Array<ProducedProduct>;
-  createdMaterialspecificationSet: Array<Product>;
+  createdMaterialSet: Array<Material>;
+  createdMaterialspecificationSet: Array<MaterialSpecification>;
   createdOrganizationSet: Array<Organization>;
-  createdProcessSet: Array<ProductMeasurement>;
-  createdProcessmethodSet: Array<TestPlan>;
-  createdProcessmethodstepSet: Array<TestPlanMic>;
+  createdProcessSet: Array<Process>;
+  createdProcessmethodSet: Array<ProcessMethod>;
+  createdProcessmethodstepSet: Array<ProcessMethodStep>;
   createdProcessstepSet: Array<ProcessStep>;
-  createdPropertySet: Array<MicValue>;
-  createdPropertyspecificationSet: Array<Mic>;
+  createdPropertySet: Array<Property>;
+  createdPropertyspecificationSet: Array<PropertySpecification>;
   dateJoined: Scalars['DateTime'];
   email: Scalars['String'];
   firstName: Scalars['String'];
@@ -1125,18 +761,18 @@ export type User = {
   modifiedAddressSet: Array<Address>;
   modifiedEquipmentSet: Array<Equipment>;
   modifiedIdentifierSet: Array<Identifier>;
-  modifiedMaterialSet: Array<ProducedProduct>;
-  modifiedMaterialspecificationSet: Array<Product>;
+  modifiedMaterialSet: Array<Material>;
+  modifiedMaterialspecificationSet: Array<MaterialSpecification>;
   modifiedOrganizationSet: Array<Organization>;
-  modifiedProcessSet: Array<ProductMeasurement>;
-  modifiedProcessmethodSet: Array<TestPlan>;
-  modifiedProcessmethodstepSet: Array<TestPlanMic>;
+  modifiedProcessSet: Array<Process>;
+  modifiedProcessmethodSet: Array<ProcessMethod>;
+  modifiedProcessmethodstepSet: Array<ProcessMethodStep>;
   modifiedProcessstepSet: Array<ProcessStep>;
-  modifiedPropertySet: Array<MicValue>;
-  modifiedPropertyspecificationSet: Array<Mic>;
+  modifiedPropertySet: Array<Property>;
+  modifiedPropertyspecificationSet: Array<PropertySpecification>;
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
-  processSet: Array<ProductMeasurement>;
+  processes: Array<Process>;
   /** Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only. */
   username: Scalars['String'];
 };
@@ -1151,17 +787,25 @@ export type Verify = {
   payload: Scalars['GenericScalar'];
 };
 
-export type MicDetailFragment = { __typename?: 'MIC', id: string, name: string, description?: string | null, values: any, unit?: string | null, micType?: { __typename?: 'MICType', id: string, name: string } | null };
+export type AttributeDetailFragment = { __typename?: 'Attribute', id: string, name: string, description: string, parent?: { __typename?: 'Attribute', id: string } | null };
 
-export type MicTypeDetailFragment = { __typename?: 'MICType', id: string, name: string, description?: string | null };
+export type IdentifierDetailFragment = { __typename?: 'Identifier', id: string, value: string, identifierType?: { __typename?: 'IdentifierType', id: string, name: string, description: string } | null };
 
-export type MicTypeMinimumFragment = { __typename?: 'MICType', id: string, name: string };
+export type IdentifierTypeDetailFragment = { __typename?: 'IdentifierType', id: string, name: string, description: string };
 
-export type ProductSpecificationDetailFragment = { __typename?: 'ProductSpecification', id: string, name: string, description?: string | null, version?: string | null, product?: { __typename?: 'Product', id: string, name: string } | null, mics?: Array<{ __typename?: 'MIC', id: string, name: string, description?: string | null, values: any, unit?: string | null, micType?: { __typename?: 'MICType', id: string, name: string } | null } | null> | null };
+export type MaterialDetailFragment = { __typename?: 'Material', id: string, name: string, description?: string | null, specification?: { __typename?: 'MaterialSpecification', id: string, name: string, description?: string | null, version?: string | null, parent?: { __typename?: 'MaterialSpecification', id: string, name: string } | null, materialType?: { __typename?: 'MaterialType', id: string, name: string, description?: string | null, parent?: { __typename?: 'MaterialType', id: string, name: string } | null } | null, attributes: Array<{ __typename?: 'Attribute', id: string, name: string, description: string, parent?: { __typename?: 'Attribute', id: string } | null }>, identifiers: Array<{ __typename?: 'Identifier', id: string, value: string, identifierType?: { __typename?: 'IdentifierType', id: string, name: string, description: string } | null }>, properties: Array<{ __typename?: 'Property', id: string, intValue?: number | null, floatValue?: number | null, textValue?: string | null, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null, specification?: { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null } | null }>, supplier?: { __typename?: 'Organization', id: string, name: string, description?: string | null, parent?: { __typename?: 'Organization', id: string } | null, orgTypes: Array<{ __typename?: 'OrganizationType', id: string, name: string, description: string }> } | null } | null, attributes: Array<{ __typename?: 'Attribute', id: string, name: string, description: string, parent?: { __typename?: 'Attribute', id: string } | null }>, identifiers: Array<{ __typename?: 'Identifier', id: string, value: string, identifierType?: { __typename?: 'IdentifierType', id: string, name: string, description: string } | null }>, properties?: Array<{ __typename?: 'Property', id: string, intValue?: number | null, floatValue?: number | null, textValue?: string | null, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null, specification?: { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null } | null } | null> | null };
 
-export type TestPlanDetailFragment = { __typename?: 'TestPlan', id: string, name: string, description?: string | null, specification?: { __typename?: 'ProductSpecification', id: string, name: string } | null, product?: { __typename?: 'Product', id: string, name: string } | null, mics?: Array<{ __typename?: 'TestPlanMIC', id: string, name?: string | null, description?: string | null, values?: any | null, unit?: string | null, micId?: string | null, sampleType?: string | null, sampleSize?: number | null, micType?: { __typename?: 'MICType', id: string, name: string } | null } | null> | null };
+export type MaterialSpecificationDetailFragment = { __typename?: 'MaterialSpecification', id: string, name: string, description?: string | null, version?: string | null, parent?: { __typename?: 'MaterialSpecification', id: string, name: string } | null, materialType?: { __typename?: 'MaterialType', id: string, name: string, description?: string | null, parent?: { __typename?: 'MaterialType', id: string, name: string } | null } | null, attributes: Array<{ __typename?: 'Attribute', id: string, name: string, description: string, parent?: { __typename?: 'Attribute', id: string } | null }>, identifiers: Array<{ __typename?: 'Identifier', id: string, value: string, identifierType?: { __typename?: 'IdentifierType', id: string, name: string, description: string } | null }>, properties: Array<{ __typename?: 'Property', id: string, intValue?: number | null, floatValue?: number | null, textValue?: string | null, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null, specification?: { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null } | null }>, supplier?: { __typename?: 'Organization', id: string, name: string, description?: string | null, parent?: { __typename?: 'Organization', id: string } | null, orgTypes: Array<{ __typename?: 'OrganizationType', id: string, name: string, description: string }> } | null };
 
-export type TestPlanMicDetailFragment = { __typename?: 'TestPlanMIC', id: string, name?: string | null, description?: string | null, values?: any | null, unit?: string | null, micId?: string | null, sampleType?: string | null, sampleSize?: number | null, micType?: { __typename?: 'MICType', id: string, name: string } | null };
+export type MaterialTypeDetailFragment = { __typename?: 'MaterialType', id: string, name: string, description?: string | null, parent?: { __typename?: 'MaterialType', id: string, name: string } | null };
+
+export type OrganizationDetailFragment = { __typename?: 'Organization', id: string, name: string, description?: string | null, parent?: { __typename?: 'Organization', id: string } | null, orgTypes: Array<{ __typename?: 'OrganizationType', id: string, name: string, description: string }> };
+
+export type PropertyDetailFragment = { __typename?: 'Property', id: string, intValue?: number | null, floatValue?: number | null, textValue?: string | null, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null, specification?: { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null } | null };
+
+export type PropertySpecificationDetailFragment = { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null };
+
+export type PropertyTypeMinimumFragment = { __typename?: 'PropertyType', id: string, name: string };
 
 export type TokenAuthMutationVariables = Exact<{
   username: Scalars['String'];
@@ -1188,101 +832,161 @@ export type MaterialSpecificationsQueryVariables = Exact<{
 }>;
 
 
-export type MaterialSpecificationsQuery = { __typename?: 'Query', materialSpecifications?: Array<{ __typename?: 'MaterialSpecification', id: string, name: string, description?: string | null, version?: string | null, parent?: { __typename?: 'Product', id: string } | null } | null> | null };
+export type MaterialSpecificationsQuery = { __typename?: 'Query', materialSpecifications?: Array<{ __typename?: 'MaterialSpecification', id: string, name: string, description?: string | null, version?: string | null, parent?: { __typename?: 'MaterialSpecification', id: string, name: string } | null, materialType?: { __typename?: 'MaterialType', id: string, name: string, description?: string | null, parent?: { __typename?: 'MaterialType', id: string, name: string } | null } | null, attributes: Array<{ __typename?: 'Attribute', id: string, name: string, description: string, parent?: { __typename?: 'Attribute', id: string } | null }>, identifiers: Array<{ __typename?: 'Identifier', id: string, value: string, identifierType?: { __typename?: 'IdentifierType', id: string, name: string, description: string } | null }>, properties: Array<{ __typename?: 'Property', id: string, intValue?: number | null, floatValue?: number | null, textValue?: string | null, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null, specification?: { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null } | null }>, supplier?: { __typename?: 'Organization', id: string, name: string, description?: string | null, parent?: { __typename?: 'Organization', id: string } | null, orgTypes: Array<{ __typename?: 'OrganizationType', id: string, name: string, description: string }> } | null } | null> | null };
 
-export type ProductSpecificationsQueryVariables = Exact<{
-  product?: InputMaybe<ProductInput>;
+export type MaterialTypesQueryVariables = Exact<{
+  ancestor?: InputMaybe<MaterialTypeInput>;
 }>;
 
 
-export type ProductSpecificationsQuery = { __typename?: 'Query', productSpecifications?: Array<{ __typename?: 'ProductSpecification', id: string, name: string, description?: string | null, version?: string | null, product?: { __typename?: 'Product', id: string, name: string } | null, mics?: Array<{ __typename?: 'MIC', id: string, name: string, description?: string | null, values: any, unit?: string | null, micType?: { __typename?: 'MICType', id: string, name: string } | null } | null> | null } | null> | null };
+export type MaterialTypesQuery = { __typename?: 'Query', materialTypes?: Array<{ __typename?: 'MaterialType', id: string, name: string, description?: string | null, parent?: { __typename?: 'MaterialType', id: string, name: string } | null } | null> | null };
 
-export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProductsQuery = { __typename?: 'Query', products?: Array<{ __typename?: 'Product', id: string, name: string, description?: string | null, version?: string | null } | null> | null };
-
-export type TestPlansQueryVariables = Exact<{
-  product?: InputMaybe<ProductInput>;
+export type MaterialsQueryVariables = Exact<{
+  materialType?: InputMaybe<MaterialTypeInput>;
 }>;
 
 
-export type TestPlansQuery = { __typename?: 'Query', testPlans?: Array<{ __typename?: 'TestPlan', id: string, name: string, description?: string | null, specification?: { __typename?: 'ProductSpecification', id: string, name: string } | null, product?: { __typename?: 'Product', id: string, name: string } | null, mics?: Array<{ __typename?: 'TestPlanMIC', id: string, name?: string | null, description?: string | null, values?: any | null, unit?: string | null, micId?: string | null, sampleType?: string | null, sampleSize?: number | null, micType?: { __typename?: 'MICType', id: string, name: string } | null } | null> | null } | null> | null };
+export type MaterialsQuery = { __typename?: 'Query', materials?: Array<{ __typename?: 'Material', id: string, name: string, description?: string | null, specification?: { __typename?: 'MaterialSpecification', id: string, name: string, description?: string | null, version?: string | null, parent?: { __typename?: 'MaterialSpecification', id: string, name: string } | null, materialType?: { __typename?: 'MaterialType', id: string, name: string, description?: string | null, parent?: { __typename?: 'MaterialType', id: string, name: string } | null } | null, attributes: Array<{ __typename?: 'Attribute', id: string, name: string, description: string, parent?: { __typename?: 'Attribute', id: string } | null }>, identifiers: Array<{ __typename?: 'Identifier', id: string, value: string, identifierType?: { __typename?: 'IdentifierType', id: string, name: string, description: string } | null }>, properties: Array<{ __typename?: 'Property', id: string, intValue?: number | null, floatValue?: number | null, textValue?: string | null, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null, specification?: { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null } | null }>, supplier?: { __typename?: 'Organization', id: string, name: string, description?: string | null, parent?: { __typename?: 'Organization', id: string } | null, orgTypes: Array<{ __typename?: 'OrganizationType', id: string, name: string, description: string }> } | null } | null, attributes: Array<{ __typename?: 'Attribute', id: string, name: string, description: string, parent?: { __typename?: 'Attribute', id: string } | null }>, identifiers: Array<{ __typename?: 'Identifier', id: string, value: string, identifierType?: { __typename?: 'IdentifierType', id: string, name: string, description: string } | null }>, properties?: Array<{ __typename?: 'Property', id: string, intValue?: number | null, floatValue?: number | null, textValue?: string | null, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null, specification?: { __typename?: 'PropertySpecification', id: string, name: string, description?: string | null, values: any, unit?: string | null, propertyType?: { __typename?: 'PropertyType', id: string, name: string } | null } | null } | null> | null } | null> | null };
 
-export const MicTypeDetailFragmentDoc = gql`
-    fragment MICTypeDetail on MICType {
+export const MaterialTypeDetailFragmentDoc = gql`
+    fragment MaterialTypeDetail on MaterialType {
+  id
+  name
+  description
+  parent {
+    id
+    name
+  }
+}
+    `;
+export const AttributeDetailFragmentDoc = gql`
+    fragment AttributeDetail on Attribute {
+  id
+  name
+  description
+  parent {
+    id
+  }
+}
+    `;
+export const IdentifierTypeDetailFragmentDoc = gql`
+    fragment IdentifierTypeDetail on IdentifierType {
   id
   name
   description
 }
     `;
-export const MicTypeMinimumFragmentDoc = gql`
-    fragment MICTypeMinimum on MICType {
+export const IdentifierDetailFragmentDoc = gql`
+    fragment IdentifierDetail on Identifier {
+  id
+  identifierType {
+    ...IdentifierTypeDetail
+  }
+  value
+}
+    ${IdentifierTypeDetailFragmentDoc}`;
+export const PropertyTypeMinimumFragmentDoc = gql`
+    fragment PropertyTypeMinimum on PropertyType {
   id
   name
 }
     `;
-export const MicDetailFragmentDoc = gql`
-    fragment MICDetail on MIC {
+export const PropertySpecificationDetailFragmentDoc = gql`
+    fragment PropertySpecificationDetail on PropertySpecification {
   id
   name
   description
-  micType {
-    ...MICTypeMinimum
+  propertyType {
+    ...PropertyTypeMinimum
   }
   values
   unit
 }
-    ${MicTypeMinimumFragmentDoc}`;
-export const ProductSpecificationDetailFragmentDoc = gql`
-    fragment ProductSpecificationDetail on ProductSpecification {
+    ${PropertyTypeMinimumFragmentDoc}`;
+export const PropertyDetailFragmentDoc = gql`
+    fragment PropertyDetail on Property {
+  id
+  propertyType {
+    ...PropertyTypeMinimum
+  }
+  specification {
+    ...PropertySpecificationDetail
+  }
+  intValue
+  floatValue
+  textValue
+  unit
+}
+    ${PropertyTypeMinimumFragmentDoc}
+${PropertySpecificationDetailFragmentDoc}`;
+export const OrganizationDetailFragmentDoc = gql`
+    fragment OrganizationDetail on Organization {
+  id
+  name
+  description
+  parent {
+    id
+  }
+  orgTypes {
+    id
+    name
+    description
+  }
+}
+    `;
+export const MaterialSpecificationDetailFragmentDoc = gql`
+    fragment MaterialSpecificationDetail on MaterialSpecification {
   id
   name
   description
   version
-  product {
+  parent {
     id
     name
   }
-  mics {
-    ...MICDetail
+  materialType {
+    ...MaterialTypeDetail
+  }
+  attributes {
+    ...AttributeDetail
+  }
+  identifiers {
+    ...IdentifierDetail
+  }
+  properties {
+    ...PropertyDetail
+  }
+  supplier {
+    ...OrganizationDetail
   }
 }
-    ${MicDetailFragmentDoc}`;
-export const TestPlanMicDetailFragmentDoc = gql`
-    fragment TestPlanMICDetail on TestPlanMIC {
-  id
-  name
-  description
-  micType {
-    id
-    name
-  }
-  values
-  unit
-  micId
-  sampleType
-  sampleSize
-}
-    `;
-export const TestPlanDetailFragmentDoc = gql`
-    fragment TestPlanDetail on TestPlan {
+    ${MaterialTypeDetailFragmentDoc}
+${AttributeDetailFragmentDoc}
+${IdentifierDetailFragmentDoc}
+${PropertyDetailFragmentDoc}
+${OrganizationDetailFragmentDoc}`;
+export const MaterialDetailFragmentDoc = gql`
+    fragment MaterialDetail on Material {
   id
   name
   description
   specification {
-    id
-    name
+    ...MaterialSpecificationDetail
   }
-  product {
-    id
-    name
+  attributes {
+    ...AttributeDetail
   }
-  mics {
-    ...TestPlanMICDetail
+  identifiers {
+    ...IdentifierDetail
+  }
+  properties {
+    ...PropertyDetail
   }
 }
-    ${TestPlanMicDetailFragmentDoc}`;
+    ${MaterialSpecificationDetailFragmentDoc}
+${AttributeDetailFragmentDoc}
+${IdentifierDetailFragmentDoc}
+${PropertyDetailFragmentDoc}`;
 export const TokenAuthDocument = gql`
     mutation TokenAuth($username: String!, $password: String!) {
   tokenAuth(username: $username, password: $password) {
@@ -1398,16 +1102,10 @@ export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, Curren
 export const MaterialSpecificationsDocument = gql`
     query MaterialSpecifications($parent: MaterialSpecificationInput) {
   materialSpecifications(parent: $parent) {
-    id
-    name
-    description
-    version
-    parent {
-      id
-    }
+    ...MaterialSpecificationDetail
   }
 }
-    `;
+    ${MaterialSpecificationDetailFragmentDoc}`;
 
 /**
  * __useMaterialSpecificationsQuery__
@@ -1436,110 +1134,73 @@ export function useMaterialSpecificationsLazyQuery(baseOptions?: Apollo.LazyQuer
 export type MaterialSpecificationsQueryHookResult = ReturnType<typeof useMaterialSpecificationsQuery>;
 export type MaterialSpecificationsLazyQueryHookResult = ReturnType<typeof useMaterialSpecificationsLazyQuery>;
 export type MaterialSpecificationsQueryResult = Apollo.QueryResult<MaterialSpecificationsQuery, MaterialSpecificationsQueryVariables>;
-export const ProductSpecificationsDocument = gql`
-    query ProductSpecifications($product: ProductInput) {
-  productSpecifications(product: $product) {
-    ...ProductSpecificationDetail
+export const MaterialTypesDocument = gql`
+    query MaterialTypes($ancestor: MaterialTypeInput) {
+  materialTypes(ancestor: $ancestor) {
+    ...MaterialTypeDetail
   }
 }
-    ${ProductSpecificationDetailFragmentDoc}`;
+    ${MaterialTypeDetailFragmentDoc}`;
 
 /**
- * __useProductSpecificationsQuery__
+ * __useMaterialTypesQuery__
  *
- * To run a query within a React component, call `useProductSpecificationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProductSpecificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMaterialTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMaterialTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useProductSpecificationsQuery({
+ * const { data, loading, error } = useMaterialTypesQuery({
  *   variables: {
- *      product: // value for 'product'
+ *      ancestor: // value for 'ancestor'
  *   },
  * });
  */
-export function useProductSpecificationsQuery(baseOptions?: Apollo.QueryHookOptions<ProductSpecificationsQuery, ProductSpecificationsQueryVariables>) {
+export function useMaterialTypesQuery(baseOptions?: Apollo.QueryHookOptions<MaterialTypesQuery, MaterialTypesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProductSpecificationsQuery, ProductSpecificationsQueryVariables>(ProductSpecificationsDocument, options);
+        return Apollo.useQuery<MaterialTypesQuery, MaterialTypesQueryVariables>(MaterialTypesDocument, options);
       }
-export function useProductSpecificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductSpecificationsQuery, ProductSpecificationsQueryVariables>) {
+export function useMaterialTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MaterialTypesQuery, MaterialTypesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProductSpecificationsQuery, ProductSpecificationsQueryVariables>(ProductSpecificationsDocument, options);
+          return Apollo.useLazyQuery<MaterialTypesQuery, MaterialTypesQueryVariables>(MaterialTypesDocument, options);
         }
-export type ProductSpecificationsQueryHookResult = ReturnType<typeof useProductSpecificationsQuery>;
-export type ProductSpecificationsLazyQueryHookResult = ReturnType<typeof useProductSpecificationsLazyQuery>;
-export type ProductSpecificationsQueryResult = Apollo.QueryResult<ProductSpecificationsQuery, ProductSpecificationsQueryVariables>;
-export const ProductsDocument = gql`
-    query Products {
-  products {
-    id
-    name
-    description
-    version
+export type MaterialTypesQueryHookResult = ReturnType<typeof useMaterialTypesQuery>;
+export type MaterialTypesLazyQueryHookResult = ReturnType<typeof useMaterialTypesLazyQuery>;
+export type MaterialTypesQueryResult = Apollo.QueryResult<MaterialTypesQuery, MaterialTypesQueryVariables>;
+export const MaterialsDocument = gql`
+    query Materials($materialType: MaterialTypeInput) {
+  materials(materialType: $materialType) {
+    ...MaterialDetail
   }
 }
-    `;
+    ${MaterialDetailFragmentDoc}`;
 
 /**
- * __useProductsQuery__
+ * __useMaterialsQuery__
  *
- * To run a query within a React component, call `useProductsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMaterialsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMaterialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useProductsQuery({
+ * const { data, loading, error } = useMaterialsQuery({
  *   variables: {
+ *      materialType: // value for 'materialType'
  *   },
  * });
  */
-export function useProductsQuery(baseOptions?: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+export function useMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<MaterialsQuery, MaterialsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
+        return Apollo.useQuery<MaterialsQuery, MaterialsQueryVariables>(MaterialsDocument, options);
       }
-export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+export function useMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MaterialsQuery, MaterialsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
+          return Apollo.useLazyQuery<MaterialsQuery, MaterialsQueryVariables>(MaterialsDocument, options);
         }
-export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
-export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
-export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
-export const TestPlansDocument = gql`
-    query TestPlans($product: ProductInput) {
-  testPlans(product: $product) {
-    ...TestPlanDetail
-  }
-}
-    ${TestPlanDetailFragmentDoc}`;
-
-/**
- * __useTestPlansQuery__
- *
- * To run a query within a React component, call `useTestPlansQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestPlansQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestPlansQuery({
- *   variables: {
- *      product: // value for 'product'
- *   },
- * });
- */
-export function useTestPlansQuery(baseOptions?: Apollo.QueryHookOptions<TestPlansQuery, TestPlansQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestPlansQuery, TestPlansQueryVariables>(TestPlansDocument, options);
-      }
-export function useTestPlansLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestPlansQuery, TestPlansQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestPlansQuery, TestPlansQueryVariables>(TestPlansDocument, options);
-        }
-export type TestPlansQueryHookResult = ReturnType<typeof useTestPlansQuery>;
-export type TestPlansLazyQueryHookResult = ReturnType<typeof useTestPlansLazyQuery>;
-export type TestPlansQueryResult = Apollo.QueryResult<TestPlansQuery, TestPlansQueryVariables>;
+export type MaterialsQueryHookResult = ReturnType<typeof useMaterialsQuery>;
+export type MaterialsLazyQueryHookResult = ReturnType<typeof useMaterialsLazyQuery>;
+export type MaterialsQueryResult = Apollo.QueryResult<MaterialsQuery, MaterialsQueryVariables>;

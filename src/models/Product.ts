@@ -1,7 +1,8 @@
 import { Item } from './Item';
-//import { ProductInput } from '../graphql/types/globalTypes';
-import { Products_products } from '../graphql/types/Products';
-import {MaterialSpecification} from "./MaterialSpecification";
+import {
+  Product as ProductGraphQL,
+  ProductInput,
+} from '../generated/graphql';
 
 
 export class Product extends Item {
@@ -10,27 +11,26 @@ export class Product extends Item {
   description?: string;
   version?: string;
 
-  setFromGraphQL(graphQL: Products_products) {
+  setFromGraphQL(graphQL: ProductGraphQL) {
     super.setFromGraphQL(graphQL);
     const { name, description, version } = graphQL;
-    console.log('graphQL', graphQL);
-    if (name != null) {
-      this.name = name;
-    }
-    if (description != null) {
-      this.description = description;
-    }
-    if (version != null) {
-      this.version = version;
-    }
+    this.name = name ?? undefined;
+    this.description = description ?? undefined;
+    this.version = version ?? undefined;
   }
 
-  /*
   toInput(all: boolean = false): ProductInput {
     const input = super.toInput(all);
+    if (all) {
+      return {
+        ...input,
+        name: this.name,
+        description: this.description,
+        version: this.version,
+      }
+    }
     return {
       ...input,
     }
   }
-  */
 }

@@ -90,13 +90,16 @@ export type ItemEditProps<T> = {
   formId?: string,
   preSubmit?: (item: T) => Promise<T>,
   onCancel?: () => void,
-  onComplete?: () => void,
+  onComplete?: (item?: T|null) => void,
   onDelete?: () => void,
   onError?: (msg: string) => void,
   hideButtons?: boolean,
+  hideCancel?: boolean,
   hideDelete?: boolean,
   hideError?: boolean,
   ignoreParamId?: boolean,
+  submitButtonLabel?: string,
+  noBack?: boolean,
 }
 
 // Props defined by ItemEdit parents
@@ -131,9 +134,12 @@ function ItemEdit<T extends Item>(props: Props<T>) {
     onDelete,
     onError,
     hideButtons = false,
+    hideCancel = false,
     hideDelete = false,
     hideError = false,
     ignoreParamId = false,
+    submitButtonLabel,
+    noBack = false,
   } = props;
 
   //console.log('ItemEdit', item);
@@ -225,9 +231,9 @@ function ItemEdit<T extends Item>(props: Props<T>) {
       //await addItemToFirestore(itemToSubmit);
       await updateItem(itemToSubmit);
     }
-    onComplete && await onComplete();
+    onComplete && await onComplete(itemToSubmit);
     // Go back if editing from a page
-    if (item == null && paramId != null) {
+    if (!noBack && item == null && paramId != null) {
       navigate(-1);
     }
   }
@@ -261,11 +267,12 @@ function ItemEdit<T extends Item>(props: Props<T>) {
       <EditButtons
         errorMessage={errorMessage}
         hideButtons={hideButtons}
+        hideCancel={hideCancel}
         hideDelete={hideDelete || resolvedId == null}
         hideError={hideError}
         onCancel={handleCancel}
         onDeleteRequested={handleDeleteReason}
-        submitButtonLabel={(formItem?.id == null ? 'Add' : 'Update')+buttonName}
+        submitButtonLabel={submitButtonLabel ?? (formItem?.id == null ? 'Add' : 'Update')+buttonName}
       />
     </form>
   );

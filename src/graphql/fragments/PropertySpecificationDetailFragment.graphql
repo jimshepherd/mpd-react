@@ -1,0 +1,12 @@
+#import './PropertyTypeMinimumFragment.graphql'
+
+fragment PropertySpecificationDetail on PropertySpecification {
+  id
+  name
+  description
+  propertyType {
+    ...PropertyTypeMinimum
+  }
+  values
+  unit
+}

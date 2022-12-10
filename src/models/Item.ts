@@ -11,7 +11,7 @@ interface ItemGraphQL {
 export class Item {
   id?: string;
 
-  static fromGraphQL<T extends typeof Item>(this: T, graphQL: ItemGraphQL|null) {
+  static fromGraphQL<T extends typeof Item, S>(this: T, graphQL: S|null) {
     const item = new this() as InstanceType<T>;
     if (graphQL != null) {
       item.setFromGraphQL(graphQL);

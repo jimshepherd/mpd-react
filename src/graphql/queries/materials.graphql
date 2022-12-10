@@ -1,0 +1,7 @@
+#import '../fragments/MaterialTypeDetailFragment.graphql'
+
+query Materials($materialType: MaterialTypeInput) {
+  materials(materialType: $materialType) {
+    ...MaterialDetail
+  }
+}

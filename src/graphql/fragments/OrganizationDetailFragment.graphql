@@ -1,0 +1,14 @@
+
+fragment OrganizationDetail on Organization {
+  id
+  name
+  description
+  parent {
+    id
+  }
+  orgTypes {
+    id
+    name
+    description
+  }
+}

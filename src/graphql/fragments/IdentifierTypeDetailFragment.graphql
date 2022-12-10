@@ -1,0 +1,7 @@
+
+
+fragment IdentifierTypeDetail on IdentifierType {
+  id
+  name
+  description
+}

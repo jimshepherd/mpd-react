@@ -1,0 +1,11 @@
+
+
+fragment MaterialTypeDetail on MaterialType {
+  id
+  name
+  description
+  parent {
+    id
+    name
+  }
+}

@@ -39,6 +39,10 @@ export const mainListItems = [
     link: '/app/materials',
   }, {
     icon: <ShoppingCart />,
+    text:'Material Types',
+    link: '/app/material_types',
+  }, {
+    icon: <ShoppingCart />,
     text:'Processes',
     link: '/app/processes',
   },

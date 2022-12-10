@@ -1,0 +1,9 @@
+
+fragment AttributeDetail on Attribute {
+  id
+  name
+  description
+  parent {
+    id
+  }
+}

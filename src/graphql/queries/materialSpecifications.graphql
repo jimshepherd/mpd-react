@@ -1,11 +1,7 @@
+#import '../fragments/MaterialSpecificationDetailFragment.graphql'
+
 query MaterialSpecifications($parent: MaterialSpecificationInput) {
   materialSpecifications(parent: $parent) {
-    id
-    name
-    description
-    version
-    parent {
-      id
-    }
+    ...MaterialSpecificationDetail
   }
 }

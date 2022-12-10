@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import { useQuery} from '@apollo/client';
 
 import { Product, ProductSpecification } from '../../models';
-import productSpecificationsQuery from '../queries/productSpecifications.graphql';
+import productSpecificationsQuery from '../queries/productSpecifications.graphql.inactive';
 import {
   ProductSpecificationsQuery,
   ProductSpecificationsQueryVariables,

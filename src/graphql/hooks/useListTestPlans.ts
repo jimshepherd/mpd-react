@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { Product, TestPlan } from '../../models';
-import testPlansQuery from '../queries/testPlans.graphql';
+import testPlansQuery from '../queries/testPlans.graphql.inactive';
 import {
   TestPlansQuery,
   TestPlansQueryVariables,

@@ -1,8 +1,7 @@
-query Products {
-  products {
+
+fragment ProductDetail on Product {
     id
     name
     description
     version
-  }
 }

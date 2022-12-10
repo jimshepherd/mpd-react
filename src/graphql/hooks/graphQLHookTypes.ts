@@ -2,7 +2,7 @@ import { Item } from '../../models';
 
 
 export type GetGraphQLProps<T extends Item> = {
-  currentId?: string,
+  id?: string,
   name?: string,
   model?: { new (): T; },
   [key: string]: any,

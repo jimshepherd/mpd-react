@@ -3,7 +3,9 @@ import SignIn from '../components/SignIn/SignIn';
 import { AttributeView } from '../components/Attribute';
 import { Home } from '../components/Home';
 import { MainLayout, MinimalLayout } from '../layouts';
+import { MaterialTypesView } from '../components/Material';
 import { ProductsView } from '../components/Product';
+import { TestPlanView } from '../components/TestPlan';
 
 
 const routes = (isAuthenticated: boolean) => [
@@ -13,7 +15,9 @@ const routes = (isAuthenticated: boolean) => [
     children: [
       { path: 'home', element: <Home /> },
       { path: 'attributes', element: <AttributeView /> },
+      { path: 'material_types', element: <MaterialTypesView /> },
       { path: 'products', element: <ProductsView /> },
+      { path: 'test_plan/:id', element: <TestPlanView /> },
       //{ path: '*', element: <Navigate to='/404'/> }
     ]
   },

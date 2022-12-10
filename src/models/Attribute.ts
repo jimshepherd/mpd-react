@@ -1,7 +1,8 @@
 import { Item } from './Item';
-import { AttributeInput } from '../graphql/types/globalTypes';
-import { Attributes_attributes } from '../graphql/types/Attributes';
-
+import {
+  Attribute as AttributeGraphQL,
+  AttributeInput
+} from '../generated/graphql';
 
 
 export class Attribute extends Item {
@@ -10,25 +11,27 @@ export class Attribute extends Item {
   description?: string;
   parent?: Attribute;
 
-  setFromGraphQL(graphQL: Attributes_attributes) {
+  setFromGraphQL(graphQL: AttributeGraphQL) {
     super.setFromGraphQL(graphQL);
     const { name, description, parent } = graphQL;
-    console.log('graphQL', graphQL);
-    if (name != null) {
-      this.name = name;
-    }
-    if (description != null) {
-      this.description = description;
-    }
-    if (parent != null) {
-      this.parent = Attribute.fromGraphQL(parent);
-    }
+    this.name = name ?? undefined;
+    this.description = description ?? undefined;
+    this.parent = parent == null ? undefined : Attribute.fromGraphQL(parent);
   }
 
   toInput(all: boolean = false): AttributeInput {
     const input = super.toInput(all);
+    if (all) {
+      return {
+        ...input,
+        name: this.name,
+        description: this.description,
+        parent: this.parent?.toInput(),
+      }
+    }
     return {
       ...input,
+      name: this.name,
     }
   }
 }

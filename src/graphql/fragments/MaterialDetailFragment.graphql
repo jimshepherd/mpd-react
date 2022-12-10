@@ -1,0 +1,22 @@
+#import './AttributeDetailFragment.graphql'
+#import './IdentifierDetailFragment.graphql'
+#import './PropertyDetailFragment.graphql'
+#import './MaterialSpecificationDetailFragment.graphql'
+
+fragment MaterialDetail on Material {
+    id
+    name
+    description
+    specification {
+      ...MaterialSpecificationDetail
+    }
+    attributes {
+      ...AttributeDetail
+    }
+    identifiers {
+      ...IdentifierDetail
+    }
+    properties {
+      ...PropertyDetail
+    }
+}

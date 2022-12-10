@@ -1,0 +1,16 @@
+#import './PropertyTypeMinimumFragment.graphql'
+#import './PropertySpecificationDetailFragment.graphql'
+
+fragment PropertyDetail on Property {
+  id
+  propertyType {
+    ...PropertyTypeMinimum
+  }
+  specification {
+    ...PropertySpecificationDetail
+  }
+  intValue
+  floatValue
+  textValue
+  unit
+}

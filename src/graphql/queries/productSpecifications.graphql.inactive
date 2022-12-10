@@ -5,4 +5,3 @@ query ProductSpecifications($product: ProductInput) {
     ...ProductSpecificationDetail
   }
 }
-

@@ -1,0 +1,6 @@
+
+
+fragment PropertyTypeMinimum on PropertyType {
+  id
+  name
+}

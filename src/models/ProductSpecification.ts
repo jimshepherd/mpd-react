@@ -18,7 +18,6 @@ export class ProductSpecification extends Item {
   setFromGraphQL(graphQL: ProductSpecificationGraphQL) {
     super.setFromGraphQL(graphQL);
     const { name, description, version, product, mics } = graphQL;
-    console.log('graphQL', graphQL);
     this.name = name ?? undefined;
     this.description = description ?? undefined;
     this.version = version ?? undefined;
@@ -28,6 +27,16 @@ export class ProductSpecification extends Item {
 
   toInput(all: boolean = false): ProductSpecificationInput {
     const input = super.toInput(all);
+    if (all) {
+      return {
+        ...input,
+        name: this.name,
+        description: this.description,
+        version: this.version,
+        product: this.product?.toInput(),
+        mics: this.mics?.map(m => m.toInput()),
+      }
+    }
     return {
       ...input,
     }

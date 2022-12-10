@@ -70,6 +70,7 @@ export type ItemViewProps<T extends Item> = {
   item?: T | null,
   id?: string|null,
   ignoreParamId?: boolean,
+  onIdChange?: (id?: string|null) => void,
 };
 
 type Props<T extends Item> = ItemViewProps<T> & {
@@ -83,27 +84,31 @@ function ItemView<T extends Item>(props: Props<T>) {
   const {
     item, id,
     useGetGraphQL = GetGraphQLPlaceholder, useGetGraphQLProps,
-    viewRenderer, ignoreParamId=false} = props;
+    viewRenderer, ignoreParamId=false, onIdChange,
+  } = props;
 
   //console.log('ItemView');
 
   const classes = itemViewStyles;
 
-  const {id: paramId} = useParams();
+  const { id: paramId } = useParams();
 
   const [resolvedId, setResolvedId] = useState<string|undefined>(undefined);
   useEffect(() => {
     if (id != null) {
       setResolvedId(id);
+      onIdChange && onIdChange(id);
     } else if (!ignoreParamId && paramId != null) {
       setResolvedId(paramId);
+      onIdChange && onIdChange(paramId);
     } else {
       setResolvedId(undefined);
+      onIdChange && onIdChange(undefined);
     }
   }, [id, paramId, ignoreParamId]);
 
   const {item: graphQLItem, gettingItem, getError} =
-    useGetGraphQL({currentId: resolvedId, ...useGetGraphQLProps});
+    useGetGraphQL({id: resolvedId, ...useGetGraphQLProps});
 
   const [resolvedItem, setResolvedItem] = useState<T|null>(null);
   useEffect(() => {

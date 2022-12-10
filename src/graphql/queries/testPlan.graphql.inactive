@@ -1,0 +1,7 @@
+#import '../fragments/TestPlanDetailFragment.graphql'
+
+query TestPlan($testPlan: TestPlanInput) {
+  testPlan(testPlan: $testPlan) {
+    ...TestPlanDetail
+  }
+}

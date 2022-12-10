@@ -10,6 +10,7 @@ type Props = {
   formId?: string,
   disableSave?: boolean,
   hideButtons?: boolean,
+  hideCancel?: boolean,
   hideDelete?: boolean,
   hideError?: boolean,
   onCancel?: () => void,
@@ -24,7 +25,7 @@ const EditButtons = (props: Props) => {
   const {
     errorMessage, formId,
     disableSave=false,
-    hideButtons=false, hideDelete=false, hideError=false,
+    hideButtons=false, hideCancel=false, hideDelete=false, hideError=false,
     onCancel, onDeleteRequested, onSave,
     submitButtonLabel, variant,
   } = props;
@@ -70,7 +71,7 @@ const EditButtons = (props: Props) => {
               </Button>
           )
         }
-        {onCancel &&
+        {!hideCancel && onCancel &&
           <Button
             sx={editClasses.cancelButton}
             color='primary'

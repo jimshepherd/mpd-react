@@ -15,7 +15,7 @@ yarn run graphql_gen
 ```
 * Run the apollo CLI (deprecated)
 ```shell
-~/.yarn/bin/apollo client:codegen --target typescript --endpoint=http://localhost:8000/graphql --outputFlat src/graphql/types/
+yarn run graphql_gen --verbose
 ```
 
 
